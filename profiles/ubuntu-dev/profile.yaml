@@ -73,10 +73,18 @@ tool_categories:
     - redis-tools
     - mongodb-tools
 
+  ai_cli_tools:
+    - warp-terminal  # AI-powered terminal
+    - claude-cli     # Anthropic Claude CLI
+    - github-copilot-cli  # GitHub Copilot CLI
+    - aider          # AI pair programming
+    - cursor         # AI code editor
+
   utilities:
     - tmux
     - zsh
     - oh-my-zsh
+    - starship       # Cross-shell prompt
     - fzf
     - ripgrep
     - fd-find
@@ -142,6 +150,12 @@ options:
     type: boolean
     default: true
     description: Install Kubernetes tools
+
+  ai_tools:
+    type: multi-choice
+    default: [claude-cli, github-copilot]
+    choices: [warp-terminal, claude-cli, github-copilot, aider, cursor, all, none]
+    description: AI-powered development tools
 
 # Default applications
 applications:
