@@ -1,0 +1,330 @@
+# Parrot Security Enhanced - Preserve Parrot OS + Enhancements
+# DO NOT replace Parrot packages - only enhance and optimize
+# Target: Parrot Security 6.4 with MATE desktop
+
+name: parrot-security-enhanced
+version: 1.0.0
+description: Enhanced Parrot Security with optimizations - preserves all Parrot OS functionality
+author: Henry
+created: 2025-10-15
+status: production
+
+# Compatible ONLY with Parrot OS
+compatible_os:
+  - id: parrot
+    versions: ["6.4", "6.5"]
+  - id: debian  # Base OS
+    versions: ["12"]
+    note: "Must be Parrot Security derivative"
+
+# System requirements
+requirements:
+  min_ram_gb: 8
+  recommended_ram_gb: 62
+  min_disk_gb: 100
+  architecture: ["x86_64"]
+  desktop: "MATE"  # Preserve MATE desktop
+  note: "Enhances existing Parrot OS - does not replace"
+
+# IMPORTANT: Module selection that PRESERVES Parrot OS
+modules:
+  # System enhancements (NON-DESTRUCTIVE)
+  - sys-monitoring-enhanced     # Add btop, nvtop (keep Parrot tools)
+  - sys-optimizations-parrot   # Parrot-specific kernel tuning
+
+  # Shell enhancement (ADD to existing bash, not replace)
+  - shell-bash-security        # Parrot security aliases
+  - shell-modern-cli           # bat, exa, etc (aliases optional)
+
+  # Development tools (ADDITIONAL)
+  - dev-tmux-config            # Tmux setup
+  - editor-neovim-security     # Neovim for quick edits
+
+  # Performance (system-wide)
+  - perf-cpu-tuning-ryzen      # AMD Ryzen optimizations
+  - perf-btrfs-parrot          # Btrfs tuning
+
+  # AI/ML for security research
+  - ai-llm-security            # Local LLM for analysis
+  - ai-tools-security          # AI-powered security tools
+
+# Installation approach: ENHANCE, not replace
+installation_philosophy:
+  preserve_parrot: true
+  keep_mate_desktop: true
+  keep_parrot_menus: true
+  keep_parrot_tools: true
+  add_enhancements: true
+  optimize_performance: true
+
+# What we WON'T do
+do_not:
+  - Replace Parrot Security packages
+  - Remove MATE desktop
+  - Replace default shell (bash)
+  - Modify Parrot menu structure
+  - Change default Parrot configurations
+  - Install conflicting packages
+
+# What we WILL do
+enhancements:
+  - Add modern CLI tools (as alternatives, not replacements)
+  - Add system monitoring (btop, nvtop alongside existing)
+  - Optimize kernel parameters for Ryzen 9 7945HX
+  - Add AI/ML tools for security research
+  - Add development tools (tmux, neovim)
+  - Optimize NVMe and Btrfs performance
+  - Add security aliases and functions
+  - Keep all Parrot Security functionality intact
+
+# Installation phases (enhancement-focused)
+phases:
+  - name: pre-check
+    description: Verify we're on Parrot OS
+    script: scripts/00-verify-parrot.sh
+    critical: true
+
+  - name: monitoring-tools
+    description: Add enhanced monitoring (non-destructive)
+    script: scripts/10-monitoring-tools.sh
+    tasks:
+      - Install btop (alongside existing htop)
+      - Install nvtop (GPU monitoring)
+      - Install iotop (I/O monitoring)
+      - Keep all existing Parrot monitoring tools
+
+  - name: fonts-icons
+    description: Install modern fonts and icons for MATE
+    script: scripts/15-fonts-icons.sh
+    tasks:
+      - Install Nerd Fonts (JetBrainsMono, FiraCode, Hack)
+      - Install system fonts (Ubuntu, Noto, Liberation)
+      - Install icon themes (Papirus Dark, Numix, Moka)
+      - Configure MATE desktop fonts
+      - Configure terminal font (JetBrainsMono Nerd Font)
+      - Set up emoji support (Noto Color Emoji)
+      - Optimize font rendering (subpixel antialiasing)
+
+  - name: system-optimizations
+    description: Parrot-safe kernel and system tuning
+    script: scripts/20-parrot-optimizations.sh
+    tasks:
+      - Apply Ryzen 9 7945HX specific tuning
+      - Optimize for 62GB RAM
+      - Tune Btrfs for NVMe SSDs
+      - Configure CPU governor
+      - Keep Parrot Security hardening intact
+
+  - name: bash-enhancements
+    description: Enhance existing bash (preserve Parrot bashrc)
+    script: scripts/30-bash-enhancements.sh
+    tasks:
+      - Source security-aliases.sh
+      - Add modern CLI tools
+      - Add AI integration functions
+      - Keep Parrot PS1 prompt
+      - Keep Parrot bash configurations
+
+  - name: development-tools
+    description: Add development environment
+    script: scripts/40-dev-tools.sh
+    tasks:
+      - Install tmux with security-focused config
+      - Install neovim for quick edits
+      - Keep vim as primary (Parrot default)
+      - Add git enhancements
+
+  - name: ai-security-tools
+    description: AI/ML for security research
+    script: scripts/50-ai-security.sh
+    tasks:
+      - Install Ollama for local LLM
+      - Set up security-focused models
+      - Add AI-assisted reconnaissance
+      - Add AI log analysis tools
+      - AI CVE analysis integration
+
+  - name: performance-tuning
+    description: Hardware-specific optimization
+    script: scripts/60-performance.sh
+    tasks:
+      - 32-thread parallel builds
+      - NVMe I/O optimization
+      - Btrfs scrub automation
+      - CPU affinity for security tools
+
+# Parrot-specific configurations (PRESERVE these)
+parrot_preserve:
+  bashrc:
+    path: /home/henry/.bashrc
+    action: append  # Do not replace
+    source_from: /home/henry/Github/dot-files/shell/bash/security-aliases.sh
+
+  mate_desktop:
+    preserve: true
+    panels: keep
+    applets: keep
+    themes: keep
+
+  parrot_menus:
+    path: /usr/share/applications
+    action: preserve
+    note: "Keep all Parrot Security menu entries"
+
+  security_tools:
+    metasploit: keep
+    burpsuite: keep
+    wireshark: keep
+    aircrack: keep
+    nmap: keep
+    note: "All Parrot tools remain as primary"
+
+# Enhanced packages (ADDITIONS, not replacements)
+packages_add:
+  monitoring:
+    - btop          # Add alongside htop
+    - nvtop         # GPU monitoring
+    - iotop         # I/O monitoring
+    - ncdu          # Disk usage analyzer
+
+  modern_cli:
+    - bat           # Better cat (aliased as 'batcat')
+    - exa           # Better ls (optional alias)
+    - fd-find       # Better find
+    - ripgrep       # Better grep
+    - fzf           # Fuzzy finder
+
+  fonts:
+    - fonts-firacode
+    - fonts-hack
+    - fonts-liberation
+    - fonts-liberation2
+    - fonts-noto
+    - fonts-noto-color-emoji
+    - fonts-roboto
+    - fonts-ubuntu
+    - fonts-font-awesome
+    - fonts-powerline
+    - font-manager
+
+  icons:
+    - papirus-icon-theme
+    - numix-icon-theme
+    - moka-icon-theme
+
+  development:
+    - tmux          # Terminal multiplexer
+    - neovim        # Modern vim
+
+  performance:
+    - cpufrequtils  # CPU governor management
+    - tuned         # Performance profiles
+
+# Shell configuration (ENHANCEMENT not replacement)
+bash_enhancements:
+  source_files:
+    - ~/Github/dot-files/shell/bash/security-aliases.sh  # Parrot security aliases
+    - ~/.bash_enhancements  # Our additions
+
+  additions:
+    - "export MAKEFLAGS='-j32'"  # 32-thread builds
+    - "source ~/.bash_enhancements"
+    - "# Enhanced by henry-os-automator"
+
+  preserve:
+    - PS1  # Keep Parrot prompt
+    - PATH  # Keep Parrot paths
+    - Existing aliases  # Keep Parrot aliases
+
+# AI/ML Integration (Security focused)
+ai_security:
+  models:
+    primary: deepseek-coder:33b  # Code and security analysis
+    quick: llama3.1:8b           # Quick queries
+    specialized: mistral:7b      # Alternative
+
+  functions:
+    - ai-recon        # AI-assisted reconnaissance
+    - ai-logs         # AI log analysis
+    - ai-cve          # CVE analysis
+    - ai-threat       # Threat intelligence
+    - ai-analyze      # General security analysis
+
+  integration:
+    - nmap output analysis
+    - Log file analysis
+    - CVE explanations
+    - Threat hunting assistance
+
+# Performance targets (for Ryzen 9 7945HX)
+performance:
+  cpu:
+    governor: performance
+    threads: 32
+    makeflags: "-j32"
+
+  memory:
+    swappiness: 10
+    cache_pressure: 50
+
+  storage:
+    io_scheduler: none  # NVMe
+    btrfs_options: "noatime,compress=zstd,space_cache=v2"
+
+  network:
+    congestion_control: bbr
+
+# Verification (ensure Parrot OS intact)
+verification:
+  parrot_os:
+    - check: cat /etc/os-release | grep Parrot
+      description: Verify still on Parrot OS
+
+    - check: dpkg -l | grep parrot-core
+      description: Verify Parrot core packages intact
+
+    - check: which burpsuite
+      description: Verify Parrot security tools available
+
+  enhancements:
+    - check: btop --version
+      description: Verify btop installed
+
+    - check: ollama --version
+      description: Verify AI tools installed
+
+    - check: echo $MAKEFLAGS
+      expected: "-j32"
+      description: Verify parallel build configuration
+
+# Maintenance
+maintenance:
+  daily:
+    - Keep Parrot tools updated: sudo parrot-upgrade
+    - Update ExploitDB: searchsploit -u
+    - Update MSF: msfupdate
+
+  weekly:
+    - Update AI models: ollama pull deepseek-coder:33b
+    - Btrfs scrub: sudo btrfs scrub start /
+
+  monthly:
+    - Full system audit: sudo lynis audit system
+    - Review security logs
+
+# Documentation
+documentation:
+  parrot_docs: https://www.parrotsec.org/docs/
+  security_aliases: ~/Github/dot-files/shell/bash/security-aliases.sh
+  system_optimizations: ~/Github/dot-files/configs/SYSTEM_OPTIMIZATIONS.md
+  ai_integration: Profile-specific AI security integration guide
+
+# Critical Notes
+critical_notes:
+  - "This profile ENHANCES Parrot OS, it does NOT replace it"
+  - "All Parrot Security tools and functionality remain intact"
+  - "MATE desktop is preserved"
+  - "Bash is enhanced, not replaced (ZSH is NOT installed by default)"
+  - "Parrot menus and applets are kept"
+  - "Security-first approach maintained"
+  - "Optimizations are Parrot-compatible"
