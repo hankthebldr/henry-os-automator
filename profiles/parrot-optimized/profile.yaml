@@ -1,0 +1,413 @@
+# Parrot Security - Maximum Optimized Configuration
+# Complete system setup: Security + Performance + Development + AI/ML
+# Hardware: AMD Ryzen 9 7945HX, 62GB RAM, NVMe SSDs
+
+name: parrot-optimized
+version: 2.0.0
+description: Maximum optimized Parrot Security with defensive tools, development environment, and AI/ML stack
+author: Henry
+created: 2025-10-15
+status: production
+
+# Compatible operating systems
+compatible_os:
+  - id: parrot
+    versions: ["6.4", "6.5"]
+  - id: debian
+    versions: ["12", "13"]
+
+# System requirements
+requirements:
+  min_ram_gb: 8
+  recommended_ram_gb: 62
+  min_disk_gb: 100
+  architecture: ["x86_64"]
+  cpu: "AMD Ryzen 9 7945HX (32 threads)"
+  storage: "NVMe SSD (Btrfs filesystem)"
+
+# Complete module stack (dependency-resolved installation)
+modules:
+  # Foundation - System monitoring and tools
+  - sys-monitoring-tools      # btop, nvtop, iotop, ncdu, nvme-cli
+  - sys-optimizations         # Sysctl, CPU governor, NVMe, Btrfs
+
+  # Shell environment
+  - shell-bash-enhanced       # Or shell-zsh-enhanced
+  - shell-modern-cli          # bat, exa, fd, ripgrep, fzf
+
+  # Development tools
+  - dev-git-config            # Git with 50+ aliases
+  - dev-tmux-config           # Tmux with plugins
+  - editor-neovim-lsp         # Neovim with LSP support
+
+  # Container & orchestration
+  - container-docker          # Docker with optimizations
+  - container-kubernetes      # kubectl, k9s, helm
+
+  # Programming languages
+  - lang-python-stack         # Python, pip, pipenv, poetry
+  - lang-nodejs-stack         # Node.js, npm, yarn, nvm
+  - lang-rust                 # Rust toolchain
+  - lang-go                   # Go toolchain
+
+  # Security tools (defensive focus)
+  - sec-firewall-ufw          # UFW with rate limiting
+  - sec-ids-fail2ban          # Fail2ban intrusion detection
+  - sec-mac-apparmor          # AppArmor profiles
+  - sec-monitoring            # Security audit tools
+  - sec-network-tools         # nmap, wireshark (defensive use)
+
+  # AI/ML Stack
+  - ai-llm-ollama             # Ollama for local LLM
+  - ai-llm-llamacpp           # llama.cpp (32-thread optimized)
+  - ai-rag-langchain          # LangChain RAG framework
+  - ai-vector-chromadb        # ChromaDB vector database
+  - ai-embeddings             # Sentence Transformers
+
+  # AI Development Tools
+  - ai-cli-tools              # Warp, Claude CLI, Copilot CLI, Aider
+
+  # Performance & Monitoring
+  - perf-cpu-tuning           # CPU governor, affinity
+  - perf-memory-tuning        # Memory management
+  - perf-nvme-tuning          # NVMe I/O schedulers
+  - perf-btrfs-tuning         # Btrfs mount options, scrub automation
+
+# Installation phases with cumulative dependency tracking
+phases:
+  - name: pre-install
+    description: System validation and preparation
+    script: scripts/00-pre-install.sh
+    tasks:
+      - Verify hardware specifications
+      - Check operating system compatibility
+      - Validate sudo access
+      - Create backup of existing configurations
+      - Initialize state tracking
+
+  - name: system-foundation
+    description: Core system setup and package installation
+    script: scripts/10-system-foundation.sh
+    tasks:
+      - Update package lists
+      - Install essential build tools
+      - Install monitoring tools (btop, nvtop, iotop, ncdu)
+      - Install modern CLI tools (bat, exa, fd, ripgrep, fzf)
+      - Install NVMe management tools
+      - Configure package management
+
+  - name: system-optimizations
+    description: Kernel and system-level optimizations
+    script: scripts/20-system-optimizations.sh
+    tasks:
+      - Apply sysctl tuning (memory, network, filesystem)
+      - Configure CPU governor (performance mode)
+      - Optimize NVMe I/O schedulers
+      - Configure Btrfs mount options
+      - Set up swap management
+      - Enable BBR congestion control
+      - Configure file limits and inotify
+
+  - name: shell-environment
+    description: Shell configuration and modern CLI setup
+    script: scripts/30-shell-environment.sh
+    tasks:
+      - Install and configure Bash/ZSH
+      - Set up Oh-My-Zsh (if ZSH selected)
+      - Install shell plugins
+      - Configure aliases and functions
+      - Set up 32-thread parallel builds
+      - Configure git-aware prompts
+      - Set up local override support
+
+  - name: development-tools
+    description: Development environment setup
+    script: scripts/40-development-tools.sh
+    tasks:
+      - Configure Git with aliases
+      - Set up Tmux with plugins
+      - Install and configure Neovim with LSP
+      - Install language servers (pyright, ts-server, etc.)
+      - Set up Docker and Docker Compose
+      - Install Kubernetes tools
+      - Configure development workspace
+
+  - name: programming-languages
+    description: Programming language stacks
+    script: scripts/50-programming-languages.sh
+    tasks:
+      - Install Python stack (pyenv, pip, pipenv, poetry)
+      - Install Node.js stack (nvm, npm, yarn, pnpm)
+      - Install Rust toolchain
+      - Install Go toolchain
+      - Configure language-specific tools
+
+  - name: security-hardening
+    description: Security tools and hardening
+    script: scripts/60-security-hardening.sh
+    tasks:
+      - Configure UFW firewall
+      - Set up Fail2ban
+      - Enable AppArmor profiles
+      - Install security audit tools (lynis, rkhunter)
+      - Configure SSH hardening
+      - Set up automatic security updates
+      - Configure audit logging
+
+  - name: ai-ml-stack
+    description: AI/ML infrastructure
+    script: scripts/70-ai-ml-stack.sh
+    tasks:
+      - Install Ollama
+      - Compile llama.cpp (32-thread optimized)
+      - Set up LangChain and RAG frameworks
+      - Install vector databases
+      - Configure embedding models
+      - Install AI CLI tools (Claude, Copilot, Aider)
+      - Set up Starship prompt
+
+  - name: performance-tuning
+    description: Final performance optimizations
+    script: scripts/80-performance-tuning.sh
+    tasks:
+      - Configure CPU affinity for key services
+      - Set up huge pages
+      - Optimize Btrfs scrub automation
+      - Configure system monitoring
+      - Set up performance baselines
+      - Create benchmark scripts
+
+  - name: post-install
+    description: Verification and finalization
+    script: scripts/90-post-install.sh
+    tasks:
+      - Run system verification checks
+      - Generate configuration report
+      - Create quick reference guides
+      - Set up maintenance scripts
+      - Schedule automated tasks (btrfs scrub, security scans)
+
+# Detailed configuration options
+options:
+  shell:
+    type: choice
+    default: zsh
+    choices: [bash, zsh]
+    description: Primary shell (ZSH recommended for better plugins)
+
+  security_level:
+    type: choice
+    default: high
+    choices: [medium, high, paranoid]
+    description: Security hardening level
+
+  development_focus:
+    type: multi-choice
+    default: [python, nodejs, containers]
+    choices: [python, nodejs, rust, go, java, containers, cloud]
+    description: Development stacks to install
+
+  ai_ml_stack:
+    type: boolean
+    default: true
+    description: Install complete AI/ML infrastructure
+
+  ai_cli_tools:
+    type: multi-choice
+    default: [claude-cli, copilot, aider]
+    choices: [warp-terminal, claude-cli, copilot, aider, cursor, all]
+    description: AI-powered development tools
+
+  performance_mode:
+    type: choice
+    default: maximum
+    choices: [balanced, performance, maximum]
+    description: System performance tuning level
+
+  desktop_environment:
+    type: choice
+    default: minimal
+    choices: [none, minimal, full]
+    description: Desktop environment (none for headless)
+
+# Package dependencies (cumulative list)
+packages:
+  essential:
+    - build-essential
+    - git
+    - curl
+    - wget
+    - software-properties-common
+
+  monitoring:
+    - btop
+    - nvtop
+    - iotop
+    - ncdu
+    - nvme-cli
+    - smartmontools
+
+  modern_cli:
+    - bat
+    - exa
+    - fd-find
+    - ripgrep
+    - fzf
+    - tldr
+
+  shell:
+    - zsh
+    - bash-completion
+
+  editors:
+    - neovim
+    - vim
+
+  development:
+    - tmux
+    - docker.io
+    - docker-compose
+
+  performance:
+    - sysstat
+    - cpufrequtils
+    - tlp
+    - tuned
+
+  security:
+    - ufw
+    - fail2ban
+    - apparmor
+    - apparmor-utils
+    - lynis
+    - rkhunter
+    - clamav
+
+  python:
+    - python3
+    - python3-pip
+    - python3-venv
+
+  # AI/ML packages installed via pip
+  python_ai:
+    - langchain
+    - langchain-community
+    - llama-index
+    - chromadb
+    - sentence-transformers
+    - pypdf
+    - bs4
+
+# System configuration files
+system_configs:
+  sysctl:
+    path: /etc/sysctl.d/99-custom.conf
+    source: configs/sysctl-optimizations.conf
+
+  cpu_governor:
+    path: /etc/default/cpufrequtils
+    content: 'GOVERNOR="performance"'
+
+  io_schedulers:
+    path: /etc/udev/rules.d/60-ioschedulers.rules
+    source: configs/ioschedulers.rules
+
+  btrfs_scrub:
+    path: /etc/systemd/system/btrfs-scrub.timer
+    source: configs/btrfs-scrub.timer
+
+# Post-installation tasks and verification
+post_install_tasks:
+  - Verify all modules installed successfully
+  - Run security audit: sudo lynis audit system
+  - Check system optimizations: sysctl -a | grep custom
+  - Test AI/ML stack: ollama run llama3.1:8b
+  - Generate system report: scripts/system-report.sh
+  - Create backup: scripts/backup-config.sh
+
+# Verification checks (cumulative)
+verification:
+  system:
+    - check: neofetch
+      description: Display system information
+    - check: btop --version
+      description: Verify btop installation
+    - check: sysctl vm.swappiness
+      expected: 10
+      description: Check swappiness setting
+
+  shell:
+    - check: $SHELL --version
+      description: Verify shell installation
+    - check: echo $MAKEFLAGS
+      expected: "-j32"
+      description: Check parallel build configuration
+
+  development:
+    - check: git --version
+      description: Verify Git installation
+    - check: nvim --version
+      description: Verify Neovim installation
+    - check: docker --version
+      description: Verify Docker installation
+
+  security:
+    - check: sudo ufw status
+      description: Check firewall status
+    - check: systemctl status fail2ban
+      description: Check Fail2ban status
+    - check: sudo aa-status
+      description: Check AppArmor status
+
+  ai_ml:
+    - check: ollama --version
+      description: Verify Ollama installation
+    - check: python3 -c "import langchain"
+      description: Verify LangChain installation
+
+# Maintenance and automation
+maintenance:
+  daily:
+    - Update package lists
+    - Check security logs
+    - Monitor system resources
+
+  weekly:
+    - Run security scan (lynis)
+    - Check for rootkits (rkhunter)
+    - Review failed login attempts
+
+  monthly:
+    - Btrfs scrub (automated via systemd timer)
+    - Full system backup
+    - Review and update configurations
+
+# Documentation references
+documentation:
+  setup: README.md
+  modules: DOTFILES_MODULE_INDEX.md
+  system_optimizations: /home/henry/Github/dot-files/configs/SYSTEM_OPTIMIZATIONS.md
+  llm_rag_setup: /home/henry/Github/dot-files/configs/LLM_RAG_SETUP.md
+  security: /home/henry/Github/dot-files/configs/SECURITY_LAB_NETWORK_STRATEGY.md
+
+# Resource allocation (for 62GB RAM system)
+resource_allocation:
+  system_reserved: 4GB
+  development: 20GB
+  ai_ml_models: 30GB
+  available: 8GB
+
+# Performance targets
+performance_targets:
+  cpu_max_freq: 5.461GHz
+  parallel_jobs: 32
+  context_switches: <1000/sec
+  io_wait: <5%
+  memory_available: >10GB
+
+# Integration with dot-files
+dotfiles_integration:
+  source_repo: /home/henry/Github/dot-files
+  modules_mapped: true
+  ansible_compatible: true
+  state_tracked: true
