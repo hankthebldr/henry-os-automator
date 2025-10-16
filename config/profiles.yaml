@@ -1,0 +1,39 @@
+# Profile Registry
+# Defines all available profiles and their metadata
+
+profiles:
+  hyprland-security:
+    name: "Hyprland Security Desktop"
+    description: "Minimal, immersive Wayland desktop with comprehensive security hardening"
+    status: available
+    version: 1.0.0
+    path: profiles/hyprland-security
+    compatible_os: [ubuntu, debian, arch, manjaro]
+    tags: [desktop, security, privacy, wayland, minimal]
+
+  parrot-security:
+    name: "Parrot Security Workstation"
+    description: "Security research and penetration testing environment"
+    status: planned
+    version: 0.1.0
+    path: profiles/parrot-security
+    compatible_os: [parrot, debian, ubuntu]
+    tags: [security, pentesting, research, defensive]
+
+  ubuntu-dev:
+    name: "Ubuntu Development Environment"
+    description: "Full-stack development setup with modern tools"
+    status: planned
+    version: 0.1.0
+    path: profiles/ubuntu-dev
+    compatible_os: [ubuntu, debian]
+    tags: [development, docker, kubernetes, cloud]
+
+  minimal-server:
+    name: "Minimal Server"
+    description: "Headless server with Docker and monitoring"
+    status: planned
+    version: 0.1.0
+    path: profiles/minimal-server
+    compatible_os: [ubuntu, debian, arch]
+    tags: [server, docker, headless, monitoring]

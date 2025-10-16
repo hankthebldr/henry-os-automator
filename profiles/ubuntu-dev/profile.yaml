@@ -1,0 +1,160 @@
+# Ubuntu Development Environment Profile
+
+name: ubuntu-dev
+version: 0.1.0
+description: Full-stack development environment with modern tools and workflows
+author: Henry
+created: 2025-10-15
+status: planned
+
+# Compatible operating systems
+compatible_os:
+  - id: ubuntu
+    versions: ["22.04", "24.04"]
+  - id: debian
+    versions: ["12", "13"]
+
+# System requirements
+requirements:
+  min_ram_gb: 16
+  min_disk_gb: 100
+  architecture: ["x86_64", "aarch64"]
+
+# Development tools categories
+tool_categories:
+  version_control:
+    - git
+    - gh  # GitHub CLI
+    - lazygit
+
+  containers:
+    - docker
+    - docker-compose
+    - kubectl
+    - k9s
+    - helm
+    - minikube
+
+  cloud_tools:
+    - aws-cli
+    - gcloud
+    - azure-cli
+    - terraform
+    - ansible
+
+  languages:
+    python:
+      - python3
+      - pip
+      - pipenv
+      - poetry
+      - pyenv
+    nodejs:
+      - nodejs
+      - npm
+      - yarn
+      - pnpm
+      - nvm
+    rust:
+      - rustc
+      - cargo
+    go:
+      - go
+      - gopls
+
+  editors:
+    - neovim
+    - vscode
+    - zed
+
+  databases:
+    - postgresql-client
+    - mysql-client
+    - redis-tools
+    - mongodb-tools
+
+  utilities:
+    - tmux
+    - zsh
+    - oh-my-zsh
+    - fzf
+    - ripgrep
+    - fd-find
+    - bat
+    - exa
+    - htop
+    - btop
+    - httpie
+    - jq
+    - yq
+
+# Installation phases
+phases:
+  - name: pre-install
+    description: System preparation
+    script: scripts/pre-install.sh
+
+  - name: install
+    description: Install development tools
+    script: install.sh
+
+  - name: configure
+    description: Configure tools and dotfiles
+    script: scripts/configure.sh
+
+  - name: post-install
+    description: Final setup and verification
+    script: scripts/post-install.sh
+
+# Configuration options
+options:
+  shell:
+    type: choice
+    default: zsh
+    choices: [bash, zsh, fish]
+    description: Default shell
+
+  editor:
+    type: choice
+    default: neovim
+    choices: [neovim, vscode, both]
+    description: Primary editor
+
+  cloud_provider:
+    type: multi-choice
+    default: [aws]
+    choices: [aws, gcp, azure, none]
+    description: Cloud provider CLIs to install
+
+  language_stack:
+    type: multi-choice
+    default: [python, nodejs]
+    choices: [python, nodejs, rust, go, java, ruby]
+    description: Programming languages to set up
+
+  container_platform:
+    type: choice
+    default: docker
+    choices: [docker, podman, both]
+    description: Container platform
+
+  kubernetes_tools:
+    type: boolean
+    default: true
+    description: Install Kubernetes tools
+
+# Default applications
+applications:
+  terminal: kitty
+  browser: firefox
+  editor: nvim
+  git_ui: lazygit
+
+post_install_tasks:
+  - Configure git user info
+  - Set up SSH keys
+  - Configure cloud CLI authentication
+  - Install language-specific packages
+  - Set up development workspace
+  - Configure Docker without sudo
+  - Set up kubectl contexts

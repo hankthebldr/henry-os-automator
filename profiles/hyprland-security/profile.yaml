@@ -1,0 +1,128 @@
+# Hyprland Security Desktop Profile
+
+name: hyprland-security
+version: 1.0.0
+description: Minimal, immersive Wayland desktop with comprehensive security hardening
+author: Henry
+created: 2025-10-15
+
+# Compatible operating systems
+compatible_os:
+  - id: ubuntu
+    versions: ["22.04", "24.04"]
+  - id: debian
+    versions: ["12", "13"]
+  - id: arch
+    versions: ["rolling"]
+  - id: manjaro
+    versions: ["rolling"]
+
+# System requirements
+requirements:
+  min_ram_gb: 4
+  min_disk_gb: 20
+  architecture: ["x86_64", "aarch64"]
+  display_server: wayland
+
+# Modules used by this profile
+modules:
+  - security-hardening
+  - privacy-tools
+  - desktop-hyprland
+  - terminal-kitty
+  - status-bar-waybar
+
+# Installation phases
+phases:
+  - name: pre-install
+    description: System preparation and validation
+    script: scripts/pre-install.sh
+
+  - name: install
+    description: Package installation
+    script: secure-desktop-setup.sh
+
+  - name: configure
+    description: Apply configurations
+    scripts:
+      - configs/create-hyprland-config.sh
+      - configs/create-waybar-config.sh
+      - configs/create-terminal-config.sh
+      - configs/create-security-config.sh
+      - configs/create-privacy-configs.sh
+      - configs/create-wallpaper-theme.sh
+
+  - name: post-install
+    description: Final setup and verification
+    script: scripts/post-install.sh
+
+# Configuration options
+options:
+  security_level:
+    type: choice
+    default: high
+    choices: [low, medium, high, paranoid]
+    description: Level of security hardening
+
+  enable_firewall:
+    type: boolean
+    default: true
+    description: Configure UFW firewall
+
+  enable_fail2ban:
+    type: boolean
+    default: true
+    description: Install and configure Fail2ban
+
+  enable_apparmor:
+    type: boolean
+    default: true
+    description: Enable AppArmor profiles
+
+  privacy_mode:
+    type: choice
+    default: enhanced
+    choices: [minimal, standard, enhanced, maximum]
+    description: Level of privacy protection
+
+  wallpaper_style:
+    type: choice
+    default: minimal-dark
+    choices: [minimal-dark, gradient, custom]
+    description: Desktop wallpaper style
+
+# Default applications
+applications:
+  terminal: kitty
+  browser: firefox
+  editor: nvim
+  file_manager: ranger
+  launcher: wofi
+  lock_screen: swaylock
+
+# Post-installation tasks
+post_install_tasks:
+  - Run security audit: ~/.config/security/security-check.sh
+  - Generate wallpaper: ~/.config/wallpapers/generate-minimal-wallpaper.sh
+  - Apply security settings: ~/.config/security/setup-all.sh
+  - Apply privacy settings: ~/.config/privacy/setup-all.sh
+  - Reboot system to apply all changes
+
+# Verification checks
+verification:
+  - check: hyprland --version
+    description: Verify Hyprland installation
+  - check: waybar --version
+    description: Verify Waybar installation
+  - check: sudo ufw status
+    description: Check firewall status
+  - check: systemctl status fail2ban
+    description: Check Fail2ban status
+  - check: sudo aa-status
+    description: Check AppArmor status
+
+# Documentation
+documentation:
+  readme: README.md
+  keybindings: docs/keybindings.md
+  troubleshooting: docs/troubleshooting.md

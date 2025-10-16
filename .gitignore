@@ -1,0 +1,41 @@
+# State and logs
+state/
+*.log
+logs/
+
+# Backups
+backups/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.env
+venv/
+ENV/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.bak
+*.old
+
+# User-specific configs
+config/user-*.yaml
+config/local.yaml
+
+# Downloaded files
+downloads/
+cache/

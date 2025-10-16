@@ -1,0 +1,112 @@
+# Parrot Security Workstation Profile
+
+name: parrot-security
+version: 0.1.0
+description: Security research and defensive security workstation setup
+author: Henry
+created: 2025-10-15
+status: planned
+
+# Compatible operating systems
+compatible_os:
+  - id: parrot
+    versions: ["5.x", "6.x"]
+  - id: debian
+    versions: ["12", "13"]
+  - id: ubuntu
+    versions: ["22.04", "24.04"]
+
+# System requirements
+requirements:
+  min_ram_gb: 8
+  min_disk_gb: 50
+  architecture: ["x86_64"]
+
+# Security tools and categories
+tool_categories:
+  reconnaissance:
+    - nmap
+    - masscan
+    - dnsenum
+    - fierce
+    - whois
+
+  vulnerability_analysis:
+    - nikto
+    - wpscan
+    - sqlmap
+    - lynis
+    - rkhunter
+
+  network_analysis:
+    - wireshark
+    - tcpdump
+    - netcat
+    - socat
+
+  defensive:
+    - fail2ban
+    - ufw
+    - apparmor
+    - clamav
+    - aide
+
+  forensics:
+    - autopsy
+    - volatility
+    - binwalk
+    - foremost
+
+  privacy:
+    - tor
+    - proxychains
+    - macchanger
+
+# Installation phases
+phases:
+  - name: pre-install
+    description: System preparation
+    script: scripts/pre-install.sh
+
+  - name: install
+    description: Install security tools
+    script: install.sh
+
+  - name: configure
+    description: Configure tools and environment
+    script: scripts/configure.sh
+
+  - name: post-install
+    description: Final setup
+    script: scripts/post-install.sh
+
+# Configuration options
+options:
+  tool_set:
+    type: choice
+    default: defensive
+    choices: [minimal, defensive, full-pentesting]
+    description: Set of security tools to install
+
+  anonymity_tools:
+    type: boolean
+    default: true
+    description: Install Tor and privacy tools
+
+  forensics_tools:
+    type: boolean
+    default: false
+    description: Install forensics analysis tools
+
+# Default applications
+applications:
+  terminal: kitty
+  browser: firefox
+  editor: nvim
+  network_analyzer: wireshark
+
+post_install_tasks:
+  - Review installed tools
+  - Configure Tor if enabled
+  - Set up VPN configurations
+  - Review security hardening settings
